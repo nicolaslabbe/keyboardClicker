@@ -2,10 +2,17 @@ var keyboardClicker = {
     offsetX: 0,
     offsetY: 0,
     target: null,
+    keyCode: 0,
     
     init: function ()
     {
         'use strict';
+        
+        if (navigator.userAgent.indexOf('Mac') !== -1) {
+            keyboardClicker.keyCode = 188;
+        } else {
+            keyboardClicker.keyCode = 226;
+        }
         
         keyboardClicker.bindEvent();
     },
@@ -16,7 +23,7 @@ var keyboardClicker = {
         
         document.body.addEventListener('keydown',function(e)
         {
-            if(e.keyCode === 188 && typeof keyboardClicker.target !== 'undefined' && keyboardClicker.target !== null) {
+            if(e.keyCode === keyboardClicker.keyCode && typeof keyboardClicker.target !== 'undefined' && keyboardClicker.target !== null) {
                 keyboardClicker.target.click();
             }
         });
